@@ -12,20 +12,20 @@ import androidx.navigation.compose.composable
 
 @Composable
 fun NavigationGraph(navController: NavHostController) {
-    NavHost(navController, startDestination = BottomNavItem.Home.route) {
-        composable(BottomNavItem.Home.route) {
+    NavHost(navController, startDestination = BottomNavItem.Autocarros.route) {
+        composable(BottomNavItem.Autocarros.route) {
             ScreenContent(name = "Autocarros")
         }
-        composable(BottomNavItem.Lines.route) {
+        composable(BottomNavItem.Avisos.route) {
             ScreenContent(name = "Avisos")
         }
-        composable(BottomNavItem.Map.route) {
+        composable(BottomNavItem.AiChat.route) {
             ScreenContent(name = "Ai Chat")
         }
-        composable(BottomNavItem.About.route) {
+        composable(BottomNavItem.Carteira.route) {
             ScreenContent(name = "Carteira")
         }
-        composable(BottomNavItem.Settings.route) {
+        composable(BottomNavItem.Opcoes.route) {
             ScreenContent(name = "Opções")
         }
     }
