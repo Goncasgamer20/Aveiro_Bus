@@ -11,8 +11,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
 @Composable
-fun NavigationGraph(navController: NavHostController) {
-    NavHost(navController, startDestination = BottomNavItem.Autocarros.route) {
+fun NavigationGraph(
+    navController: NavHostController,
+    isLoggedIn: Boolean,
+    onLoginSuccess: () -> Unit,
+    onLogout: () -> Unit
+) {
+    NavHost(
+        navController = navController,
+        startDestination = BottomNavItem.Autocarros.route
+    ) {
         composable(BottomNavItem.Autocarros.route) {
             Autocarros()
         }
@@ -27,6 +35,12 @@ fun NavigationGraph(navController: NavHostController) {
         }
         composable(BottomNavItem.Opcoes.route) {
             Opcoes()
+        }
+        composable("login") {
+            LoginScreen(onLoginSuccess = onLoginSuccess)
+        }
+        composable("userProfile") {
+            UserProfileScreen(onLogout = onLogout)
         }
     }
 }
