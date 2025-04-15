@@ -1,7 +1,6 @@
 package com.example.aveirobus
 
 import android.content.Context
-import android.widget.TextView
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -27,9 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
 import java.io.BufferedReader
-import java.io.File
 import java.io.FileNotFoundException
 import java.io.InputStreamReader
 import kotlin.text.split
@@ -37,7 +34,7 @@ import kotlin.text.trim
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(onLoginSuccess: () -> Unit) {
+fun LoginScreen(onLoginSuccess: () -> Unit, onLoginFailure: () -> Unit) {
     val context = LocalContext.current
     // Use a single Column to manage the layout of all elements
     Column(
@@ -97,6 +94,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
                 onLoginSuccess() // Call the lambda to navigate
                 errorMessage = null // Clear any previous error message
             } else {
+                onLoginFailure() // Call the new lambda
                 errorMessage = "Error: Invalid username or password."
             }
         }) {
@@ -111,6 +109,15 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
                 color = Color.Red
             )
         }
+
+        Spacer(modifier = Modifier.height(16.dp)) // More space before the button
+
+        // Register Button
+        Button(onClick = {
+            // Handle registration logic here
+        }) {
+            Text("Register")
+            }
     }
 }
 
@@ -122,7 +129,7 @@ fun compareUserPassword(context: Context, username: String, password: String, fi
         reader.forEachLine { line ->
             val cleanLine = line.trim()
             val parts = cleanLine.split(",")
-
+            println("Parts: $parts")
             if (parts.size == 2) {
                 val fileUser = parts[0].trim()
                 val filePassword = parts[1].trim()

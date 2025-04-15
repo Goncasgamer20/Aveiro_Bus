@@ -12,6 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.aveirobus.ui.theme.AveiroBusTheme
 
@@ -39,20 +40,29 @@ class MainActivity : ComponentActivity() {
                         )
                     },
                     bottomBar = { BottomNavigationBar(navController = navController) }
-                ) { innerPadding ->
+                ) {paddingValues ->
+                    println("Scaffold content called")
                     NavigationGraph(
                         navController = navController,
                         isLoggedIn = isLoggedIn,
                         onLoginSuccess = {
+                            println("Login success")
                             isLoggedIn = true
                             navController.popBackStack() // Remove the login screen from the back stack
                             navController.navigate(BottomNavItem.Autocarros.route)
                         },
+                        onLoginFailure = {
+                            println("Login failure")
+                            isLoggedIn = false
+                            navController.popBackStack() // Remove the login screen from the back stack
+                            navController.navigate(BottomNavItem.Autocarros.route)
+                        },
                         onLogout = {
+                            println("Logout")
                             isLoggedIn = false
                             navController.popBackStack() // Remove the user profile screen from the back stack
                             navController.navigate(BottomNavItem.Autocarros.route)
-                        }
+                        },
                     )
                 }
             }
